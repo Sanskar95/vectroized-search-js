@@ -1,0 +1,21 @@
+{
+  "name": "test-search",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.9.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "natural": "^6.7.0",
+    "openai": "^4.3.0",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^3.2.146",
+    "pug": "2.0.0-beta11"
+  }
+}
