@@ -15,7 +15,7 @@ const TfIdf = natural.TfIdf;
 const getEmbedding =(body)=>{
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + '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'
+            'Authorization': 'Bearer ' + 'put key here'
         }
     }
     return axios.post(
