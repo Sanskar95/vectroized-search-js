@@ -15,7 +15,7 @@ const TfIdf = natural.TfIdf;
 const getEmbedding =(body)=>{
     let config = {
         headers: {
-            'Authorization': 'Bearer ' + 'put key here'
+            'Authorization': 'Bearer ' + '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'
         }
     }
     return axios.post(
@@ -49,7 +49,7 @@ const tfidf = new TfIdf();
 
 // Step 2: Tokenize and add documents to the TF-IDF instance
 
-const pdfList = ["p1.pdf", "p2.pdf", "p3.pdf", "p4.pdf", "p5.pdf"]
+const pdfList = ["apple.pdf", "mongo.pdf","nvdia.pdf"]
 
 const extractTextFromPdf = async (pdfFilePath) => {
     try {
@@ -69,7 +69,12 @@ async function getContent(src) {
     const doc = await PDFJS.getDocument(src).promise // note the use of the property promise
     const page = await doc.getPage(1)
     const content = await page.getTextContent()
-    return content.items.map((item) => item.str)[0]
+    let stringDoc = ""
+    for (let i =0; i<content.items.length ;i++){
+        stringDoc=stringDoc.concat(" ")
+        stringDoc=stringDoc.concat(content.items[i].str)
+    }
+  return stringDoc
 }
 
 
@@ -104,7 +109,7 @@ const createIndices = async () => {
                         type: "dense_vector",
                         dims: 1536,
                         index: true,
-                        similarity: "cosine",
+                        // similarity: "cosine",
                     },
                 },
             },
@@ -124,7 +129,7 @@ const createIndexs = () => {
 
 
     Promise.all(embeddingsPromiseArray).then(embeddings=>{
-        let embeddingsData = embeddings.map(embedding=> embeddings[0].data.data[0].embedding)
+        let embeddingsData = embeddings.map(embedding=> embedding.data.data[0].embedding)
         for(let i = 0; i<embeddingsData.length; i++){
             console.log(embeddingsData[i].length)
             client.index({
@@ -169,7 +174,7 @@ const query = async (input) => {
     const response = await client.search({
         index: 'texts',
         body: {
-            size: 4,
+            size: 3,
             query: {
                 function_score: {
                     query: {
